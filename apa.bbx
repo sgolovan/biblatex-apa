@@ -427,9 +427,8 @@
 
 \DeclareFieldFormat{issuetitle}{#1\isdot}
 \DeclareFieldFormat{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{\mkbibemph{#1}\isdot}}
-\DeclareFieldFormat{origtitle}{\mkbibemph{\MakeSentenceCase*{#1}}\isdot}
 \DeclareFieldFormat[article]{title}{#1\isdot}
-\DeclareFieldFormat[article]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat{transtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inbook]{title}{#1\isdot}
 \DeclareFieldFormat[inbook]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
@@ -484,15 +483,15 @@
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
     {}
-    {\iffieldundef{origtitle}
+    {\iffieldundef[form=translated]{title}
       {\printtext[title]{%
         \printfield[apacase]{title}%
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}%
-      {\printfield{origtitle}%
+      {\printfield[apacase]{title}%
        \setunit{\addspace}%
        \printtext[brackets]{%
-        \printfield[apacase]{title}%
+       \printfield[transtitle][form=translated]{title}%
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}
      \setunit{\addspace}%
