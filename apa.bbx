@@ -483,17 +483,17 @@
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
     {}
-    {\iffieldundef[form=translated]{title}
-      {\printtext[title]{%
-        \printfield[apacase]{title}%
-        \setunit{\subtitlepunct}%
-        \printfield[apacase]{subtitle}}}%
+    {\ifbibfieldform{title}{translated}
       {\printfield[apacase]{title}%
        \setunit{\addspace}%
        \printtext[brackets]{%
        \printfield[transtitle][form=translated]{title}%
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}
+      {\printtext[title]{%
+        \printfield[apacase]{title}%
+        \setunit{\subtitlepunct}%
+        \printfield[apacase]{subtitle}}}%
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \iffieldequalstr{entrytype}{book}%
