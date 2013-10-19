@@ -1,5 +1,7 @@
 \documentclass[paper=a4]{article}
-\usepackage[american]{babel}
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+\setotherlanguages{french,spanish}
 \usepackage{csquotes}
 \usepackage{shortvrb}
 \usepackage{ifthen}
@@ -89,7 +91,7 @@
 \usepackage[colorlinks=true]{hyperref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%
-\DeclareLanguageMapping{american}{american-apa}
+\DeclareLanguageMapping{english}{english-apa}
 
 \begin{document}
 \section*{|biblatex-apa| style examples}

@@ -46,11 +46,14 @@
 }
 
 % (APA 7.01 Example 4)
+% The language for the translated title is english as that is the defualt set from default document
+% language. Since this is in the \DeclareCaseLangs list, the translated title is sentencecased
+% by the apacase format (see apa.bbx).
 @ARTICLE{7.01:4,
-  HYPHENATION              = {french},
+  LANGID                   = {french},
   AUTHOR                   = {P. Guimard and A. Florin},
   TITLE                    = {Les évaluations des enseignants en grande section de maternelle sont-elles prédictives des difficultés de lecture au cours préparatoire?},
-  TITLE_translated_english = {Are Teacher Ratings in Kindergarten Predictive of Reading Difficulties in First Grade?},
+  TITLE_translated         = {Are Teacher Ratings in Kindergarten Predictive of Reading Difficulties in First Grade?},
   JOURNALTITLE             = {Approche Neuropsychologique des Apprentissages chez l'Enfant},
   VOLUME                   = {19},
   PAGES                    = {5--17},
@@ -400,13 +403,14 @@
 
 % (APA 7.02 Example 28)
 @BOOK{7.02:28,
-  AUTHOR         = {{Real Academia Española}},
-  TITLE          = {Diccionario de la lengua española},
+  LANGID           = {spanish},
+  AUTHOR           = {{Real Academia Española}},
+  TITLE            = {Diccionario de la lengua española},
   TITLE_translated = {Dictionary of the {S}panish Language},
-  EDITION        = {22},
-  LOCATION       = {Madrid, Spain},
-  PUBLISHER      = {Author},
-  YEAR           = {2001},
+  EDITION          = {22},
+  LOCATION         = {Madrid, Spain},
+  PUBLISHER        = {Author},
+  YEAR             = {2001},
 }
 
 % (APA 7.02 Example 29)

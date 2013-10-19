@@ -441,9 +441,13 @@
 \DeclareFieldFormat{apacase}{\MakeSentenceCase*{#1}}
 
 \DeclareFieldFormat{issuetitle}{#1\isdot}
-\DeclareFieldFormat{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{\mkbibemph{#1}\isdot}}
+\DeclareFieldFormat{title}{%
+  \iffieldequalstr{titleisdescription}{true}
+    {\mkbibbrackets{#1}}
+    {\ifcurrentform{translated}
+      {#1\isdot}
+      {\mkbibemph{#1}\isdot}}}
 \DeclareFieldFormat[article]{title}{#1\isdot}
-\DeclareFieldFormat{transtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inbook]{title}{#1\isdot}
 \DeclareFieldFormat[inbook]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
@@ -495,14 +499,15 @@
      \printtext{\bibcloseparen}}%
 }
 
+% The \printtext does the \emph'ing and the \printfield the casing
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
     {}
     {\ifbibfieldform{title}{translated}
-      {\printfield[apacase]{title}%
+      {\printtext[title]{\printfield[apacase]{title}}%
        \setunit{\addspace}%
        \printtext[brackets]{%
-       \printfield[transtitle][form=translated]{title}%
+       \printfield[apacase][form=translated]{title}%
         \setunit{\subtitlepunct}%
         \printfield[apacase]{subtitle}}}
       {\printtext[title]{%
