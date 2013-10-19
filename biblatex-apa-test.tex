@@ -18,7 +18,7 @@
 \usepackage[style=apa]{biblatex}
 
 % Custom settings for misc entries in order to format the table for 6.13*
-% This table implies that the examples on each line are in a seperate
+% This table implies that the examples on each line are in a separate
 % document but since we are generating the citations from a real data
 % source, we have to prevent the usual uniquelist processing by making
 % all of the examples MISC entrytypes and changing uniquelist
@@ -110,6 +110,11 @@ demonstrated.
 \noindent Please see accompanying file |biblatex-apa-test-citations.bib|
 for the bibliographic entries which these examples use.
 
+\noindent\apa{4.03}\\
+Oxford comma in citations for three or more names:\\
+\apaex{\textcite{oc1}}\\
+\apaex{\parencite{oc2}}
+
 \noindent\apa{6.11}\\
 Simple cite. «Jr.» suffix is not shown (bib entry for this example has a suffix):\\
 \apaex{\textcite{6.11}}
@@ -165,6 +170,13 @@ However, in parenthetical cites, multiple authors are separated by «\&»:\\
 this time the truncation is on first cite as there are more than 5 authors:\\
 \apaex{\textcite{6.12g}}\\
 \apaex{\textcite{6.12h}}
+
+\noindent Automatic list disambiguation is only for ambiguous author lists
+in the same year so these are not disambiguated:\\
+\apaex{\textcite{6.12i}}\\
+\apaex{\textcite{6.12j}}\\
+\apaex{\textcite{6.12i}}\\
+\apaex{\textcite{6.12j}}
 
 \noindent The following table replicates with real data the examples
 in Table 6.1, p.~177 of the APA 6th Edition manual. Note that this
@@ -366,6 +378,22 @@ these appear in references\\
 \apaex{\textcite{6.27a}}\\
 \apaex{\textcite{6.27b}}
 
+\noindent Testing suffices\\
+\apaex{\textcite{stest1}}\\
+\apaex{\textcite{stest2}}
+
+\noindent Testing prefices\\
+\apaex{\textcite{pretest}}\\
+\apaex{\textcite{nopretest}}
+
+% presufftest2 and nopresufftest have same year but don't have extrayear
+% because useprefix=false for MISC and this is taken account of in
+% extrayear generation
+\noindent Testing prefices plus suffices\\
+\apaex{\textcite{presufftest}}\\
+\apaex{\textcite{presufftest2}}\\
+\apaex{\textcite{nopresufftest}}
+
 \end{refsection}
 \begin{refsection}[biblatex-apa-test-references]
 \nocite{*}
@@ -376,5 +404,5 @@ these appear in references\\
 \newpage
 % Include a references section for citation examples just so hyperref
 % targets can be checked
-\printbibliography[section=1,title=Misc citation references for checking hyperref targets]
+\printbibliography[section=1,title=Misc citation references]
 \end{document}

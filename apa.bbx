@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{apa.bbx}[2013/03/20\space v5.9\space APA biblatex references style]
+\ProvidesFile{apa.bbx}[2013/10/19\space v6.2\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -208,7 +208,7 @@
                             pagetracker=true,%
                             useprefix=true,%
                             usetranslator=true,%
-                            uniquelist=true,%
+                            uniquelist=minyear,%
                             uniquename=full,%
                             citetracker=true,%
                             maxcitenames=2,%
@@ -225,6 +225,21 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Enforce ignoring of PUBSTATE if there is a YEAR or DATE field
+\DeclareStyleSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=year, final]
+      \step[fieldset=pubstate, null]
+    }
+    \map{
+      \step[fieldsource=date, final]
+      \step[fieldset=pubstate, null]
+   }
+  }
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % It is not APA standard to have backrefs in the bib
@@ -362,8 +377,8 @@
      \ifnameundef{with}
        {}
        {\setunit{}\addspace\mkbibparens{\printtext{\bibstring{with}\addspace}%
-       \printnames[apaauthor][-\value{listtotal}]{with}}
-       \setunit*{\addspace}}}%
+        \printnames[apaauthor][-\value{listtotal}]{with}}
+        \setunit*{\addspace}}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
 
@@ -662,7 +677,7 @@
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
      \ifblank{#4}{}{%
-       \mkbibnameprefix{#4\isdot}%
+       \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
      \ifblank{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot%
@@ -674,12 +689,13 @@
      \usebibmacro{name:hook}{#1}%
      \mkbibnamelast{#1}\isdot
      \ifblank{#2#4}{}{\addcomma}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#2}\isdot}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}\isdot%
+     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}}%
-     \ifblank{#4}{}{\addlowpenspace\mkbibnameprefix{#4}\isdot}%
+     \ifblank{#4}{}{%
+       \addhighpenspace\mkbibnameprefix{#4}%
+       \ifpunctmark{'}{}{\addhighpenspace}}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 \newbibmacro*{name:apa:first-last}[5]{%
@@ -694,17 +710,14 @@
        \mkbibnameprefix{#4\isdot}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
-     \ifblank{#5}{}{\mkbibnameaffix{#5}\isdot}}
+     \ifblank{#5}{}{\addlowpenspace\mkbibnameaffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#3}\isdot%
+     \ifblank{#2}{}{\mkbibnamefirst{#3}\isdot%
                     \ifthenelse{\value{uniquename}>1}
                       {\addspace\mkbibbrackets{#2}}
                       {}\addspace}%
      \mkbibnamelast{#1}\isdot
-     \ifblank{#2#4}{}{\addcomma}%
-     \ifblank{#2}{}{\addlowpenspace\mkbibnamefirst{#2}\isdot}%
-     \ifblank{#4}{}{\addlowpenspace\mkbibnameprefix{#4}\isdot}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
 %
@@ -1300,7 +1313,7 @@
   \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
-  \setunit*{\addspace}\newblock
+  \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
   \printfield{addendum}%

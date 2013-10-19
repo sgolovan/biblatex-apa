@@ -1,6 +1,6 @@
 % (APA 6.11)
 @BOOK{6.11,
-  AUTHOR         = {Kessler, Jr., A},
+  AUTHOR         = {Kessler, Jr., A.},
   TITLE          = {Title},
   YEAR           = {2003},
 }
@@ -52,6 +52,18 @@
   AUTHOR         = {A. Kosslyn and B. Koenig and F. Gabrieli and E. Tang and G. Marsolek and H. Daly},
   TITLE          = {Title},
   YEAR           = {1996},
+}
+
+@BOOK{6.12i,
+  AUTHOR         = {A. Albert and B. Bryant and C. Cuthbert and D. Dinge},
+  TITLE          = {Title},
+  YEAR           = {1990},
+}
+
+@BOOK{6.12j,
+  AUTHOR         = {A. Albert and B. Bryant and C. Cuthbert and E. Elide},
+  TITLE          = {Title 2},
+  YEAR           = {1991},
 }
 
 % (APA 6.13)
@@ -227,7 +239,7 @@
   YEAR           = {2007},
 }
 
-% PUBSTATE is not used as there is a year
+% PUBSTATE is not used as there is a year - enforces by a style source map in .bbx
 @BOOK{6.16p,
   AUTHOR         = {Steven Smidge},
   TITLE          = {Something 1},
@@ -411,4 +423,77 @@
   VOLUME = {1},
   PAGES  = {1-17},
   DATE = {1906}
+}
+
+% Suffix test for first-last (editor)
+@INCOLLECTION{stest1,
+  AUTHOR      = {Gring, III, Alan J.},
+  EDITOR      = {Greaves, Jr., Percy L.},
+  TITLE       = {A test of suffix 1},
+  DATE        = {1968},
+  LOCATION    = {New York, NY},
+  PUBLISHER   = {Wiley},
+  PAGES       = {1--34}
+}
+
+% Suffix test for first-last (editor)
+@INCOLLECTION{stest2,
+  EDITOR      = {Greaves, Jr., Percy L.},
+  TITLE       = {A test of suffix 2},
+  DATE        = {1968},
+  LOCATION    = {New York, NY},
+  PUBLISHER   = {Wiley},
+  PAGES       = {1--34}
+}
+
+% Don't forget that useprefix=false doesn't ignore the prefix completely - it is still used in
+% hash and uniqueness generation and so there are two different "Greaves" here - one von and one not
+% Prefix test (useprefix=true)
+@BOOK{pretest,
+  AUTHOR      = {Luis von Mises},
+  TITLE       = {A Title},
+  YEAR        = {2000}
+}
+
+% Prefix test (useprefix=false)
+@MISC{nopretest,
+  OPTIONS     = {useprefix=false},
+  AUTHOR      = {Luis von Mises},
+  TITLE       = {Another Title},
+  YEAR        = {2001}
+}
+
+% Prefix + suffix test (useprefix=true) first-last
+@INCOLLECTION{presufftest,
+  EDITOR      = {von Greaves, Jr., Percy L.},
+  TITLE       = {A test of prefix 2},
+  DATE        = {1969},
+}
+
+% Prefix + suffix test (useprefix=false)
+@MISC{nopresufftest,
+  OPTIONS     = {useprefix=false},
+  AUTHOR      = {von Greaves, Jr., Percy L.},
+  TITLE       = {A test of noprefix 2},
+  YEAR        = {2001}
+}
+
+% Prefix + suffix test (useprefix=true)
+@BOOK{presufftest2,
+  AUTHOR      = {von Greaves, Jr., Percy L.},
+  TITLE       = {A test of noprefix 2},
+  YEAR        = {2001}
+}
+
+% Oxford comma tests
+@BOOK{oc1,
+  AUTHOR      = {Hilarious, Hillary and Mirthful, Malcolm and Chuckles, Charles},
+  TITLE       = {Laughter Through the Ages},
+  YEAR        = {1987}
+}
+
+@BOOK{oc2,
+  AUTHOR      = {Miserable, Markus and Doleful, Derek and Bitter, Brian},
+  TITLE       = {Dictionary of Depressions},
+  YEAR        = {1987}
 }

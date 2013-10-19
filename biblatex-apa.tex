@@ -25,7 +25,7 @@
   url={http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib/biblatex-apa/},
   author={Philip Kime},
   email={Philip@kime.org.uk},
-  revision={5.9},
+  revision={6.2},
   date={\today}}
 
 \hypersetup{%
@@ -159,7 +159,8 @@ localisation. Thanks to Braulio José Solano Rojas for the Spanish
 localisation. Thanks to Stefan Mayer for the |subtitlepunct| suggestion.
 Thanks to Håkon Malmedal for the Norwegian localisation. Thanks to
 Johann Gründl for the Austrian localisation. Thanks to Svante Kvarnström
-for the Swedish localisation.
+for the Swedish localisation. Thanks to Hendrik Maryns for further Dutch
+localisation.
 
 \section{Use}\label{ref:use}
 \label{use}
@@ -174,13 +175,24 @@ example), you can download it from CTAN and then, put the \path{.cbx},
 \path{<texmf>/tex/latex/biblatex/bbx/apa.bbx}\\
 \path{<texmf>/tex/latex/biblatex/lbx/<language>-apa.lbx}\\
 
-\noindent Specify the style in the usual way when loading Bib\LaTeX. 
+\noindent Specify the style in the usual way when loading Bib\LaTeX. If you
+are using \sty{babel}:
 
 \begin{ltxcode}
 \usepackage[american]{babel}
 \usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
 \DeclareLanguageMapping{american}{american-apa}
+\end{ltxcode}
+
+or \sty{polyglossia}:
+
+\begin{ltxcode}
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+\usepackage{csquotes}
+\usepackage[style=apa]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
 \end{ltxcode}
 
 \noindent Note that the APA manual requires the forcing of titles into
@@ -224,13 +236,25 @@ Localisation is provided for APA-specific strings in the accompanying
 |.lbx| files. To use these files, put an appropriate mapping in your
 document preamble, after loading Bib\LaTeX.
 
-Normal use will invoke babel with the «american» babel language. After
-loading babel and biblatex, put this in the preamble (see full preamble
-example in section \ref{ref:use} above):
+Normal use will invoke \sty{babel} with the «american» language or
+\sty{polyglossia} with «american» variant of «english». After
+loading \sty{babel}/\sty{polyglossia} and biblatex, put this in the
+preamble if you are using \sty{babel} (see full preamble example in section
+\ref{ref:use} above):
 
 \begin{ltxcode}
 \DeclareLanguageMapping{american}{american-apa}
 \end{ltxcode}
+
+or for \sty{polyglossia} (since there is no language «american» in
+\sty{polyglossia}---it's just an «english» variant:
+
+\begin{ltxcode}
+\DeclareLanguageMapping{english}{english-apa}
+\end{ltxcode}
+
+The \file{english-apa.lbx} is a copy of the \file{american-apa.lbx} since
+the default is «American» English.
 
 The APA manual does not mention nor sanction any non «American» English
 strings but it is quite common for non-English journals to ask for APA style
@@ -246,7 +270,7 @@ option:
 
 This loads the |german-apa.lbx| file which in turn, loads the |german.lbx|
 file and augments it with APA-specific strings. If you are not using the
-babel «american» option, they you may need to set up the
+\sty{babel} «american» option, they you may need to set up the
 |\DeclareQuotePunctuation| option as mentioned in section \ref{ref:req} above.
 You would only need to do this if, for some strange reason, a non-american
 journal required the (rather horrible) american practice of moving final
@@ -364,18 +388,57 @@ general notes:
   value key (|PUBSTATE| takes a pre-defined set of localisation keys as
   values, see |biblatex| manual).
 \item APA style sometimes refers to the «series» of a multi-volume work.
-  This corresponds to the |MAINTITLE| field in the \path{.bib} and
+  This corresponds to the |MAINTITLE| field in the \file{.bib} and
   \emph{not} the |SERIES| field.
 \item |VOLUME|, |NUMBER| and |CHAPTER| are forced into arabic numerals if
   they are given as roman numerals, as required by \apa{6.22}.
 \end{itemize}
 
+\subsubsection{Retrieval dates for online items}
+
+APA 6th edition section 6.32 says «Do not include retrieval dates unless
+the source material may change over time (e.g., Wikis)». This is open to
+interpretation of what constitutes a Wiki and what counts as «changing over
+time». The style does not implement anything for this requirement by
+default but you can automate your own interpretation by putting this in
+your preamble:
+
+\begin{lstlisting}[style=latex]{}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+       \step[fieldsource=url,
+             notmatch=\regexp{wiki},
+             final=1]
+       \step[fieldset=urldate, null]
+    }
+  }
+}
+\end{lstlisting}
+
+\noindent This will dynamically remove the |URLDATE| field from any entry
+where the |URL| field doesn't match the regular expression «wiki». Modify this
+regular expression according to taste. This modification is dynamically
+applied to the data stream by |biber| and does not change your \file{.bib}.
+
 \section{Revision history}\label{rev}
 
 \begin{changelog}
 
-\begin{release}{6.0}{??}
+\begin{release}{6.2}{2013-10-19}
+\item Corrected Dutch translations
+\item Fixed Norwegian lbx corruption
+\item Misc bugfixes
+\end{release}
+
+\begin{release}{6.1}{2013-07-19}
+\item Corrected APA 6.12 error and switched to uniquelist=minyear
+\item Documented way of automating some APA 6.32 requirements
+\end{release}
+
+\begin{release}{6.0}{2013-07-10}
 \item Added Swedish localisation
+\item Fixed useprefix=false issue
 \end{release}
 
 \begin{release}{5.9}{2013-05-08}

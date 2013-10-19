@@ -1,5 +1,5 @@
-\ProvidesFile{british-apa.lbx}[2013/10/19\space v6.2\space APA biblatex localisation]
-\InheritBibliographyExtras{british}
+\ProvidesFile{english-apa.lbx}[2013/10/19\space v6.2\space APA biblatex localisation]
+\InheritBibliographyExtras{american}
 
 % (APA 6.22) The example abbreviations
 
@@ -26,7 +26,7 @@
 \NewBibliographyString{with}
 
 \DeclareBibliographyStrings{%
-  inherit          = {british},
+  inherit          = {american},
   revisededition   = {{Revised\space Edition}{rev\adddotspace ed\adddot}},
   page             = {{Page}{{}p\adddot}},
   pages            = {{Pages}{{}pp\adddot}},
@@ -35,14 +35,16 @@
   available        = {{available}{available}},
   from             = {{from}{from}},
   archivedat       = {{archived\space at}{archived\space at}},
-  reviewof         = {{Review\space of}{review\space of}},
+  with             = {{with}{with}},
+  reprintas        = {{reprinted as}{reprinted as}},
+  reprintfrom      = {{reprinted from}{reprinted from}},
+  reviewof         = {{review\space of}{review\space of}},
+  paragraph        = {{\P}{\P}},
+  paragraphs       = {{\P\P}{\P\P}},
   producer         = {{producer}{producer}},
   execproducer     = {{executive producer}{executive producer}},
   director         = {{director}{director}},
   writer           = {{writer}{writer}},
-  with             = {{with}{with}},
-  paragraph        = {{\P}{\P}},
-  paragraphs       = {{\P\P}{\P\P}},
   january          = {{January}{January}},
   february         = {{February}{February}},
   march            = {{March}{March}},
@@ -55,7 +57,7 @@
   october          = {{October}{October}},
   november         = {{November}{November}},
   december         = {{December}{December}},
-  mathesis         = {{Master's thesis}{Master's\addabbrvspace thesis}},
+  mathesis         = {{Master's\addabbrvspace thesis}{Master's\addabbrvspace thesis}},
   phdthesis        = {{Doctoral\addabbrvspace dissertation}{Doctoral\addabbrvspace dissertation}},
   origyear         = {{original\space work\space published}{original\space work\space published}},
   typechair        = {{Chair}{Chair}},
@@ -76,11 +78,11 @@
 
 % You must use \printdate to get here otherwise it will be ignored
 
-\DefineBibliographyExtras{british}{%
+\DefineBibliographyExtras{english}{%
   \protected\def\mkbibdateapalong#1#2#3{%
     \iffieldundef{#1}%
       {}%
-      {\thefield{#1}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}%
     \iffieldundef{#2}%
       {}%
       {\iffieldundef{#1}%
@@ -96,7 +98,7 @@
   \protected\def\mkbibdateapalongextra#1#2#3{%
     \iffieldundef{#1}%
       {}%
-      {\thefield{#1}\printfield{extrayear}}%
+      {\iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}\printfield{extrayear}}%
     \iffieldundef{#2}%
       {}%
       {\iffieldundef{#1}%
@@ -124,7 +126,7 @@
           {}%
           {\addspace}}%
         {\addcomma\addspace}%
-       \thefield{#1}}}}
+       \iffieldbibstring{#1}{\biblcstring{\thefield{#1}}}{\thefield{#1}}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
