@@ -439,14 +439,11 @@
 %            Ugly Chicago-style lowercasing of English titles
 
 \DeclareFieldFormat{apacase}{\MakeSentenceCase*{#1}}
-
 \DeclareFieldFormat{issuetitle}{#1\isdot}
 \DeclareFieldFormat{title}{%
   \iffieldequalstr{titleisdescription}{true}
     {\mkbibbrackets{#1}}
-    {\ifcurrentform{translated}
-      {#1\isdot}
-      {\mkbibemph{#1}\isdot}}}
+    {\mkbibemph{#1}\isdot}}
 \DeclareFieldFormat[article]{title}{#1\isdot}
 \DeclareFieldFormat[inbook]{title}{#1\isdot}
 \DeclareFieldFormat[inbook]{origtitle}{\MakeSentenceCase*{#1}\isdot}
@@ -503,17 +500,14 @@
 \renewbibmacro*{title}{%
   \ifthenelse{\iffieldundef{title}\AND\iffieldundef{subtitle}}
     {}
-    {\ifbibfieldform{title}{translated}
-      {\printtext[title]{\printfield[apacase]{title}}%
-       \setunit{\addspace}%
-       \printtext[brackets]{%
-       \printfield[apacase][form=translated]{title}%
-        \setunit{\subtitlepunct}%
-        \printfield[apacase]{subtitle}}}
-      {\printtext[title]{%
-        \printfield[apacase]{title}%
-        \setunit{\subtitlepunct}%
-        \printfield[apacase]{subtitle}}}%
+    {\printtext[title]{%
+       \printfield[apacase]{title}%
+       \setunit{\subtitlepunct}%
+       \printfield[apacase]{subtitle}}%
+     \ifbibfieldform{title}{translated}
+       {\setunit{\addspace}%
+        \printtext[brackets]{\printfield[apacase][form=translated]{title}}}
+       {}%
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \iffieldequalstr{entrytype}{book}%
